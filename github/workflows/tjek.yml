@@ -1,0 +1,16 @@
+name: Test trøje
+on:
+  workflow_dispatch:
+    inputs:
+      stoerrelse:
+        description: "Størrelse der tjekkes"
+        default: "S"
+jobs:
+  tjek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tjek_troeje.py
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          STOERRELSE: ${{ github.event.inputs.stoerrelse || 'S' }}
